@@ -19,3 +19,13 @@ func ConvertToInspectionUpdates(inspectionUpdates dpfm_api_input_reader.Inspecti
 		InspectionPlanInspectionText: data.InspectionPlanInspectionText,
 	}
 }
+
+func ConvertToOperationUpdates(operationUpdates dpfm_api_input_reader.Operation) *OperationUpdates {
+	data := operationUpdates
+
+	return &OperationUpdates{
+		InspectionPlan: data.InspectionPlan,
+		Operations:     data.Operations,
+		OperationsItem: data.OperationsItem,
+	}
+}

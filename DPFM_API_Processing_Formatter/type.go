@@ -10,3 +10,9 @@ type InspectionUpdates struct {
 	Inspection                   int     `json:"Inspection"`
 	InspectionPlanInspectionText *string `json:"InspectionPlanInspectionText"`
 }
+
+type OperationUpdates struct {
+	InspectionPlan                           int      `json:"InspectionPlan"`
+	Operations                               int      `json:"Operations"`
+	OperationsItem                           int      `json:"OperationsItem"`
+}

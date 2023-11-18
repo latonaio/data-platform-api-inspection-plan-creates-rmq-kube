@@ -222,7 +222,7 @@ func (c *DPFMAPICaller) inspectionCreate(
 		errFin <- err
 	}()
 	defer wg.Done()
-	err = c.complementer.ComplementInpection(input, subfuncSDC, log)
+	err = c.complementer.ComplementInspection(input, subfuncSDC, log)
 	if err != nil {
 		mtx.Lock()
 		*errs = append(*errs, err)

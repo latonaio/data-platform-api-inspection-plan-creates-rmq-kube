@@ -2,8 +2,8 @@ package sub_func_complementer
 
 import (
 	"context"
-	dpfm_api_input_reader "data-platform-api-production-order-creates-rmq-kube/DPFM_API_Input_Reader"
-	"data-platform-api-production-order-creates-rmq-kube/config"
+	dpfm_api_input_reader "data-platform-api-inspection-plan-creates-rmq-kube/DPFM_API_Input_Reader"
+	"data-platform-api-inspection-plan-creates-rmq-kube/config"
 	"encoding/json"
 
 	"github.com/latonaio/golang-logging-library-for-data-platform/logger"
@@ -30,9 +30,9 @@ func NewSubFuncComplementer(ctx context.Context, c *config.Conf, rmq *rabbitmq.R
 
 func (c *SubFuncComplementer) ComplementHeader(input *dpfm_api_input_reader.SDC, subfuncSDC *SDC, l *logger.Logger) error {
 	s := &SDC{}
-	numRange, err := c.ComplementProductionOrder(input, l)
+	numRange, err := c.ComplementInspectionPlan(input, l)
 	if err != nil {
-		return xerrors.Errorf("complement productionOrder error: %w", err)
+		return xerrors.Errorf("complement inspectionPlan error: %w", err)
 	}
 	res, err := c.rmq.SessionKeepRequest(nil, c.c.RMQ.QueueToSubFunc()["Headers"], input)
 	if err != nil {
@@ -56,7 +56,7 @@ func (c *SubFuncComplementer) ComplementHeader(input *dpfm_api_input_reader.SDC,
 	return nil
 }
 
-func (c *SubFuncComplementer) ComplementItem(input *dpfm_api_input_reader.SDC, subfuncSDC *SDC, l *logger.Logger) error {
+func (c *SubFuncComplementer) ComplementInspection(input *dpfm_api_input_reader.SDC, subfuncSDC *SDC, l *logger.Logger) error {
 	s := &SDC{}
 	res, err := c.rmq.SessionKeepRequest(nil, c.c.RMQ.QueueToSubFunc()["Items"], input)
 	if err != nil {
@@ -77,11 +77,8 @@ func (c *SubFuncComplementer) ComplementItem(input *dpfm_api_input_reader.SDC, s
 	subfuncSDC.SubfuncResult = s.SubfuncResult
 	subfuncSDC.SubfuncError = s.SubfuncError
 
-	subfuncSDC.Message.Item = msg.Item
-	subfuncSDC.Message.ItemComponent = msg.ItemComponent
-	subfuncSDC.Message.ItemComponentStockConfirmation = msg.ItemComponentStockConfirmation
-	subfuncSDC.Message.ItemComponentCosting = msg.ItemComponentCosting
-	subfuncSDC.Message.ItemOperations = msg.ItemOperations
+	subfuncSDC.Message.Inspection = msg.Inspection
+	subfuncSDC.Message.Operation = msg.Operation
 
 	return err
 }
@@ -90,7 +87,7 @@ func getBoolPtr(b bool) *bool {
 	return &b
 }
 
-func (c *SubFuncComplementer) ComplementProductionOrder(input *dpfm_api_input_reader.SDC, l *logger.Logger) (*NumberRange, error) {
+func (c *SubFuncComplementer) ComplementInspectionPlan(input *dpfm_api_input_reader.SDC, l *logger.Logger) (*NumberRange, error) {
 	rows, err := c.db.Query(
 		`SELECT NumberRangeID, ServiceLabel, FieldNameWithNumberRange, LatestNumber
 		FROM DataPlatformCommonSettingsMysqlKube.data_platform_number_range_latest_number_data
@@ -113,7 +110,7 @@ func (c *SubFuncComplementer) ComplementProductionOrder(input *dpfm_api_input_re
 		return nil, xerrors.Errorf("DB Scan error: %w", err)
 	}
 	nr.LatestNumber++
-	input.Header.ProductionOrder = nr.LatestNumber
+	input.Header.InspectionPlan = nr.LatestNumber
 	return &nr, nil
 }
 

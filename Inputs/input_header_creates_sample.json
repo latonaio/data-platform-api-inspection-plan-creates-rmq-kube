@@ -6,19 +6,53 @@
 	"api_status_code": 200,
 	"runtime_session_id": "boi9ar543dg91ipdnspi099u231280ab0v8af0ew",
 	"business_partner": null,
-	"service_label": "INSPECTION_LOT",
+	"service_label": "INSPECTION_PLAN",
 	"api_type": "creates",
-	"InspectionLot": {
-		"InspectionLot": null,
+	"UsageControl": {
+		"UsageControlLess": null,
+		"Perpetual": null,
+		"Rental": null,
+		"Duration": null,
+		"DurationUnit": "",
+		"ValidityStartDate": "",
+		"ValidityStartTime": "",
+		"ValidityEndDate": "",
+		"ValidityEndTime": "",
+		"DeleteAfterValidityEnd": null,
+		"ServiceLabelRestriction": [],
+		"ApplicationRestriction": [],
+		"PurposeRestriction": [],
+		"BusinessPartnerRoleRestriction": [],
+		"LocationRestriction": {
+		"PostalCode": [],
+		"LocalSubRegion": [],
+		"LocalRegion": [],
+		"Country": [],
+		"GlobalRegion": [],
+		"TimeZone": []
+		},
+		"DataStateRestriction": [],
+		"NumberOfUsageRestriction": null,
+		"IPAddressRestriction": [],
+		"MACAddressRestriction": [],
+		"ModifyIsAllowed": null,
+		"LocalLoggingIsAllowed": null,
+		"RemoteNotificationIsAllowed": null,
+		"DestributeOnlyIfEncrypted": null,
+		"AttachPolicyWhenDestribute": null
+	},
+	"InspectionPlan": {
 		"InspectionPlan": null,
 		"InspectionPlantBusinessPartner": null,
 		"InspectionPlant": "",
 		"Product": "",
 		"ProductSpecification": "",
 		"InspectionSpecification": "",
-		"ProductionOrder": null,
-		"ProductionOrderItem": null,
-		"InspectionLotHeaderText": "",
+		"ValidityStartDate": "",
+		"ValidityEndDate": "",
+		"InspectionPlanHeaderText": "",
+        "CertificateAuthorityChain": "",
+        "UsageControlChain": "",
 		"CreationDate": "",
 		"LastChangeDate": "",
 		"IsMarkedForDeletion": null,
@@ -37,7 +71,6 @@
 			"HeatNumber": "",
 			"CreationDate": "",
 			"LastChangeDate": "",
-			"IsCancelled": null,
 			"IsMarkedForDeletion": null
 		},
 		"SpecDetail": [
@@ -47,21 +80,20 @@
 				"LowerLimitValue": null,
 				"StandardValue": null,
 				"SpecTypeUnit": "",
+				"Formula": "",
 				"CreationDate": "",
 				"LastChangeDate": "",
-				"IsCancelled": null,
 				"IsMarkedForDeletion": null
 			}
 		],
 		"ComponentComposition": [
 			{
 				"ComponentCompositionType": "",
-				"ComponentCompositionUperLimitInPercent": null,
+				"ComponentCompositionUpperLimitInPercent": null,
 				"ComponentCompositionLowerLimitInPercent": "",
 				"ComponentCompositionStandardValueInPercent": "",
 				"CreationDate": "",
 				"LastChangeDate": "",
-				"IsCancelled": null,
 				"IsMarkedForDeletion": null
 			}
 		],
@@ -77,7 +109,6 @@
 				"InspectionPlanInspectionText": "",
 				"CreationDate": "",
 				"LastChangeDate": "",
-				"IsCancelled": null,
 				"IsMarkedForDeletion": null
 			}
 		],
@@ -142,6 +173,11 @@
 				"MoveDurationUnit": "",
 				"StandardDeliveryDuration": null,
 				"StandardDeliveryDurationUnit": "",
+				"StandardOperationScrapPercent": null,
+				"PlannedOperationStandardValue": null,
+				"PlannedOperationLowerValue": null,
+				"PlannedOperationUpperValue": null,
+				"PlannedOperationValueUnit": null,
 				"CostElement": "",
 				"OperationErlstSchedldExecStrtDte": "",
 				"OperationErlstSchedldExecStrtTme": "",
@@ -156,23 +192,11 @@
 				"OperationConfirmedYieldQuantityInOperationUnit": null,
 				"CreationDate": "",
 				"LastChangeDate": "",
-				"IsCancelled": null,
-				"IsMarkedForDeletion": null,
-				"OperationDoc": [
-					{
-						"DocType": "",
-						"DocVersionID": null,
-						"DocID": "",
-						"FileExtension": "",
-						"FileName": "",
-						"FilePath": "",
-						"DocIssuerBusinessPartner": null
-					}
-				]
+				"IsMarkedForDeletion": null
 			}
 		]
 	},
-	"api_schema": "DPFMInspectionLotCreates",
+	"api_schema": "DPFMInspectionPlanCreates",
 	"accepter": [
 		"Header"
 	]

@@ -55,7 +55,7 @@ type Operation struct {
 	CostElement                              *string  `json:"CostElement"`
 	ValidityStartDate                        *string  `json:"ValidityStartDate"`
 	ValidityEndDate                          *string  `json:"ValidityEndDate"`
-	CreationDate                             string   `json:"CreationDate"`
-	LastChangeDate                           string   `json:"LastChangeDate"`
-	IsMarkedForDeletion                      *bool    `json:"IsMarkedForDeletion"`
+	CreationDate                   			 string   `json:"CreationDate"`
+	LastChangeDate                 			 string   `json:"LastChangeDate"`
+	IsMarkedForDeletion            			 *bool    `json:"IsMarkedForDeletion"`
 }

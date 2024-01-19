@@ -148,6 +148,12 @@ func (c *DPFMAPICaller) subfuncProcess(
 		switch fn {
 		case "Header":
 			c.headerCreate(mtx, wg, subFuncFin, input, output, subfuncSDC, errs, log)
+		case "SpecGeneral":
+			c.specGeneralCreate(mtx, wg, subFuncFin, input, output, subfuncSDC, errs, log)
+		case "SpecDetail":
+			c.specDetailCreate(mtx, wg, subFuncFin, input, output, subfuncSDC, errs, log)
+		case "ComponentComposition":
+			c.componentCompositionCreate(mtx, wg, subFuncFin, input, output, subfuncSDC, errs, log)
 		case "Inspection":
 			c.inspectionCreate(mtx, wg, subFuncFin, input, output, subfuncSDC, errs, log)
 		case "Operation":
@@ -207,6 +213,102 @@ func (c *DPFMAPICaller) headerCreate(
 	return
 }
 
+func (c *DPFMAPICaller) specGeneralCreate(
+	mtx *sync.Mutex,
+	wg *sync.WaitGroup,
+	errFin chan error,
+	input *dpfm_api_input_reader.SDC,
+	output *dpfm_api_output_formatter.SDC,
+	subfuncSDC *sub_func_complementer.SDC,
+	errs *[]error,
+	log *logger.Logger,
+) {
+	var err error = nil
+	defer func() {
+		errFin <- err
+	}()
+	defer wg.Done()
+	err = c.complementer.ComplementSpecGeneral(input, subfuncSDC, log)
+	if err != nil {
+		mtx.Lock()
+		*errs = append(*errs, err)
+		mtx.Unlock()
+		return
+	}
+	output.SubfuncResult = getBoolPtr(true)
+	if subfuncSDC.SubfuncResult == nil || !*subfuncSDC.SubfuncResult {
+		output.SubfuncResult = getBoolPtr(false)
+		output.SubfuncError = subfuncSDC.SubfuncError
+		err = xerrors.New(output.SubfuncError)
+		return
+	}
+	return
+}
+
+func (c *DPFMAPICaller) specDetailCreate(
+	mtx *sync.Mutex,
+	wg *sync.WaitGroup,
+	errFin chan error,
+	input *dpfm_api_input_reader.SDC,
+	output *dpfm_api_output_formatter.SDC,
+	subfuncSDC *sub_func_complementer.SDC,
+	errs *[]error,
+	log *logger.Logger,
+) {
+	var err error = nil
+	defer func() {
+		errFin <- err
+	}()
+	defer wg.Done()
+	err = c.complementer.ComplementSpecDetail(input, subfuncSDC, log)
+	if err != nil {
+		mtx.Lock()
+		*errs = append(*errs, err)
+		mtx.Unlock()
+		return
+	}
+	output.SubfuncResult = getBoolPtr(true)
+	if subfuncSDC.SubfuncResult == nil || !*subfuncSDC.SubfuncResult {
+		output.SubfuncResult = getBoolPtr(false)
+		output.SubfuncError = subfuncSDC.SubfuncError
+		err = xerrors.New(output.SubfuncError)
+		return
+	}
+	return
+}
+
+func (c *DPFMAPICaller) componentCompositionCreate(
+	mtx *sync.Mutex,
+	wg *sync.WaitGroup,
+	errFin chan error,
+	input *dpfm_api_input_reader.SDC,
+	output *dpfm_api_output_formatter.SDC,
+	subfuncSDC *sub_func_complementer.SDC,
+	errs *[]error,
+	log *logger.Logger,
+) {
+	var err error = nil
+	defer func() {
+		errFin <- err
+	}()
+	defer wg.Done()
+	err = c.complementer.ComplementComponentComposition(input, subfuncSDC, log)
+	if err != nil {
+		mtx.Lock()
+		*errs = append(*errs, err)
+		mtx.Unlock()
+		return
+	}
+	output.SubfuncResult = getBoolPtr(true)
+	if subfuncSDC.SubfuncResult == nil || !*subfuncSDC.SubfuncResult {
+		output.SubfuncResult = getBoolPtr(false)
+		output.SubfuncError = subfuncSDC.SubfuncError
+		err = xerrors.New(output.SubfuncError)
+		return
+	}
+	return
+}
+
 func (c *DPFMAPICaller) inspectionCreate(
 	mtx *sync.Mutex,
 	wg *sync.WaitGroup,
@@ -222,7 +324,7 @@ func (c *DPFMAPICaller) inspectionCreate(
 		errFin <- err
 	}()
 	defer wg.Done()
-	err = c.complementer.ComplementInspection(input, subfuncSDC, log)
+	err = c.complementer.ComplementInpection(input, subfuncSDC, log)
 	if err != nil {
 		mtx.Lock()
 		*errs = append(*errs, err)

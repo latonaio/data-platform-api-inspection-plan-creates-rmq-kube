@@ -20,6 +20,9 @@ data-platform-api-inspection-plan-creates-rmq-kube が対応する APIサービ�
 data-platform-api-inspection-plan-creates-rmq-kube には、次の API をコールするためのリソースが含まれています。  
 
 * A_Header（品質検査計画 - ヘッダ）
+* A_SpecGeneral（品質検査計画 - スペック一般）
+* A_SpecDetail（品質検査計画 - スペック詳細）
+* A_ComponentComposition（品質検査計画 - 構成物質）
 * A_Inspection（品質検査計画 - 品質検査）
 * A_Operation（品質検査計画 - 作業）
 
@@ -37,7 +40,7 @@ accepter において 下記の例のように、データの種別（＝APIの�
 ここでは、"Header" が指定されています。    
   
 ```
-	"api_schema": "DPFMInspectionPLANCreates",
+	"api_schema": "DPFMInspectionPlanCreates",
 	"accepter": ["Header"],
 ```
   
@@ -46,7 +49,7 @@ accepter において 下記の例のように、データの種別（＝APIの�
 全データを取得する場合、sample.json は以下のように記載します。  
 
 ```
-	"api_schema": "DPFMInspectionPLANCreates",
+	"api_schema": "DPFMInspectionPlanCreates",
 	"accepter": ["All"],
 ```
 
@@ -102,7 +105,7 @@ func (c *DPFMAPICaller) AsyncCreates(
 ## Output  
 本マイクロサービスでは、[golang-logging-library-for-data-platform](https://github.com/latonaio/golang-logging-library-for-data-platform) により、以下のようなデータがJSON形式で出力されます。  
 以下の sample.json の例は 品質検査計画 の ヘッダデータ が登録/更新された結果の JSON の例です。  
-以下の項目のうち、"InspectionPLAN" ～ "IsMarkedForDeletion" は、/DPFM_API_Output_Formatter/type.go 内 の Type Header {} による出力結果です。"cursor" ～ "time"は、golang-logging-library による 定型フォーマットの出力結果です。  
+以下の項目のうち、"InspectionPlan" ～ "IsMarkedForDeletion" は、/DPFM_API_Output_Formatter/type.go 内 の Type Header {} による出力結果です。"cursor" ～ "time"は、golang-logging-library による 定型フォーマットの出力結果です。  
 
 ```
 ```

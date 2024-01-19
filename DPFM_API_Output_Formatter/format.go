@@ -20,8 +20,53 @@ func ConvertToHeaderCreates(subfuncSDC *sub_func_complementer.SDC) (*Header, err
 	return header, nil
 }
 
+func ConvertToSpecGeneralCreates(subfuncSDC *sub_func_complementer.SDC) (*[]SpecGeneral, error) {
+	specGenerals := make([]SpecGeneral, 0)
+
+	for _, data := range *subfuncSDC.Message.SpecGeneral {
+		specGeneral, err := TypeConverter[*SpecGeneral](data)
+		if err != nil {
+			return nil, err
+		}
+
+		specGenerals = append(specGenerals, *specGeneral)
+	}
+
+	return &specGenerals, nil
+}
+
+func ConvertToSpecDetailCreates(subfuncSDC *sub_func_complementer.SDC) (*[]SpecDetail, error) {
+	specDetails := make([]SpecDetail, 0)
+
+	for _, data := range *subfuncSDC.Message.SpecDetail {
+		specDetail, err := TypeConverter[*SpecDetail](data)
+		if err != nil {
+			return nil, err
+		}
+
+		specDetails = append(specDetails, *specDetail)
+	}
+
+	return &specDetails, nil
+}
+
+func ConvertToComponentCompositionCreates(subfuncSDC *sub_func_complementer.SDC) (*[]ComponentComposition, error) {
+	componentCompositions := make([]ComponentComposition, 0)
+
+	for _, data := range *subfuncSDC.Message.ComponentComposition {
+		componentComposition, err := TypeConverter[*ComponentComposition](data)
+		if err != nil {
+			return nil, err
+		}
+
+		componentCompositions = append(componentCompositions, *componentComposition)
+	}
+
+	return &componentCompositions, nil
+}
+
 func ConvertToInspectionCreates(subfuncSDC *sub_func_complementer.SDC) (*[]Inspection, error) {
-	items := make([]Inspection, 0)
+	inspections := make([]Inspection, 0)
 
 	for _, data := range *subfuncSDC.Message.Inspection {
 		inspection, err := TypeConverter[*Inspection](data)
@@ -29,14 +74,14 @@ func ConvertToInspectionCreates(subfuncSDC *sub_func_complementer.SDC) (*[]Inspe
 			return nil, err
 		}
 
-		items = append(items, *inspection)
+		inspections = append(inspections, *inspection)
 	}
 
-	return &items, nil
+	return &inspections, nil
 }
 
 func ConvertToOperationCreates(subfuncSDC *sub_func_complementer.SDC) (*[]Operation, error) {
-	items := make([]Operation, 0)
+	operations := make([]Operation, 0)
 
 	for _, data := range *subfuncSDC.Message.Operation {
 		operation, err := TypeConverter[*Operation](data)
@@ -44,10 +89,10 @@ func ConvertToOperationCreates(subfuncSDC *sub_func_complementer.SDC) (*[]Operat
 			return nil, err
 		}
 
-		items = append(items, *operation)
+		operations = append(operations, *operation)
 	}
 
-	return &items, nil
+	return &operations, nil
 }
 
 func ConvertToHeaderUpdates(headerData dpfm_api_input_reader.Header) (*Header, error) {
@@ -61,8 +106,23 @@ func ConvertToHeaderUpdates(headerData dpfm_api_input_reader.Header) (*Header, e
 	return header, nil
 }
 
-func ConvertToInspectionUpdates(itemUpdates *[]dpfm_api_processing_formatter.InspectionUpdates) (*[]Inspection, error) {
-	items := make([]Inspection, 0)
+func ConvertToSpecGeneralUpdates(SpecGeneralUpdates *[]dpfm_api_processing_formatter.SpecGeneralUpdates) (*[]SpecGeneral, error) {
+	specGenerals := make([]SpecGeneral, 0)
+
+	for _, data := range *SpecGeneralUpdates {
+		specGeneral, err := TypeConverter[*SpecGeneral](data)
+		if err != nil {
+			return nil, err
+		}
+
+		specGenerals = append(specGenerals, *specGeneral)
+	}
+
+	return &specGenerals, nil
+}
+
+func ConvertToInspectionUpdates(inspectionUpdates *[]dpfm_api_processing_formatter.InspectionUpdates) (*[]Inspection, error) {
+	inspections := make([]Inspection, 0)
 
 	for _, data := range *inspectionUpdates {
 		inspection, err := TypeConverter[*Inspection](data)
@@ -70,25 +130,10 @@ func ConvertToInspectionUpdates(itemUpdates *[]dpfm_api_processing_formatter.Ins
 			return nil, err
 		}
 
-		items = append(items, *inspection)
+		inspections = append(inspections, *inspection)
 	}
 
-	return &items, nil
-}
-
-func ConvertToOperationUpdates(itemUpdates *[]dpfm_api_processing_formatter.OperationUpdates) (*[]Operation, error) {
-	items := make([]Operation, 0)
-
-	for _, data := range *operationUpdates {
-		operation, err := TypeConverter[*Operation](data)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, *operation)
-	}
-
-	return &items, nil
+	return &inspections, nil
 }
 
 func TypeConverter[T any](data interface{}) (T, error) {

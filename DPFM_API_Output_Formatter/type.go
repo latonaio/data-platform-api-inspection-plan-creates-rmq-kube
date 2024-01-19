@@ -25,9 +25,12 @@ type SDC struct {
 }
 
 type Message struct {
-	Header     *Header       `json:"Header"`
-	Inspection *[]Inspection `json:"Inspection"`
-	Operation  *[]Operation  `json:"Operation"`
+	Header 						*[]Header 				`json:"Header"`
+	SpecGeneral					*[]SpecGeneral			`json:"SpecGeneral"`
+	SpecDetail					*[]SpecDetail			`json:"SpecDetail"`
+	ComponentComposition		*[]ComponentComposition	`json:"ComponentComposition"`
+	Inspection					*[]Inspection			`json:"Inspection"`
+	Operation					*[]Operation			`json:"Operation"`
 }
 
 type Header struct {
@@ -35,29 +38,63 @@ type Header struct {
 	InspectionPlantBusinessPartner int     `json:"InspectionPlantBusinessPartner"`
 	InspectionPlant                string  `json:"InspectionPlant"`
 	Product                        *string `json:"Product"`
-	ValidityStartDate              *string `json:"ValidityStartDate"`
-	ValidityEndDate                *string `json:"ValidityEndDate"`
+	ValidityStartDate			   *string `json:"ValidityStartDate"`
+	ValidityEndDate				   *string `json:"ValidityEndDate"`
 	ProductSpecification           *string `json:"ProductSpecification"`
 	InspectionSpecification        *string `json:"InspectionSpecification"`
 	InspectionPlanHeaderText       *string `json:"InspectionPlanHeaderText"`
-	CreationDate                   string  `json:"CreationDate"`
-	LastChangeDate                 string  `json:"LastChangeDate"`
-	IsMarkedForDeletion            *int    `json:"IsMarkedForDeletion"`
+	CertificateAuthorityChain      *string  `json:"CertificateAuthorityChain"`
+	UsageControlChain        	   *string  `json:"UsageControlChain"`
+	CreationDate                   string   `json:"CreationDate"`
+	LastChangeDate                 string   `json:"LastChangeDate"`
+	IsMarkedForDeletion            *bool    `json:"IsMarkedForDeletion"`
+}
+
+type SpecGeneral struct {
+	InspectionPlan	    	int	     `json:"InspectionPlan"`
+    HeatNumber	        	string   `json:"HeatNumber"`
+	CreationDate            string   `json:"CreationDate"`
+	LastChangeDate          string   `json:"LastChangeDate"`
+	IsMarkedForDeletion     *bool    `json:"IsMarkedForDeletion"`
+}
+
+type SpecDetail struct {
+	InspectionPlan	        int	    `json:"InspectionPlan"`
+    SpecType	            string	`json:"SpecType"`
+    UpperLimitValue	        float32	`json:"UpperLimitValue"`
+    LowerLimitValue	        float32	`json:"LowerLimitValue"`
+    StandardValue	        float32	`json:"StandardValue"`
+    SpecTypeUnit	        string	`json:"SpecTypeUnit"`
+    Formula			        *string	`json:"Formula"`
+	CreationDate            string   `json:"CreationDate"`
+	LastChangeDate          string   `json:"LastChangeDate"`
+	IsMarkedForDeletion     *bool    `json:"IsMarkedForDeletion"`
+}
+
+type ComponentComposition struct {
+	InspectionPlan								int		`json:"InspectionPlan"`
+	ComponentCompositionType					string	`json:"ComponentCompositionType"`
+	ComponentCompositionUperLimitInPercent		float32	`json:"ComponentCompositionUperLimitInPercent"`
+	ComponentCompositionLowerLimitInPercent		float32	`json:"ComponentCompositionLowerLimitInPercent"`
+	ComponentCompositionStandardValueInPercent	float32	`json:"ComponentCompositionStandardValueInPercent"`
+	CreationDate            					string   `json:"CreationDate"`
+	LastChangeDate          					string   `json:"LastChangeDate"`
+	IsMarkedForDeletion     					*bool    `json:"IsMarkedForDeletion"`
 }
 
 type Inspection struct {
-	InspectionPlan                           int      `json:"InspectionPlan"`
-	Inspection                               int      `json:"Inspection"`
-	InspectionType                           string   `json:"InspectionType"`
-	InspectionTypeValueUnit                  *string  `json:"InspectionTypeValueUnit"`
-	InspectionTypePlannedValue               *float32 `json:"InspectionTypePlannedValue"`
-	InspectionTypeCertificateType            *string  `json:"InspectionTypeCertificateType"`
-	InspectionTypeCertificateValueInText     *string  `json:"InspectionTypeCertificateValueInText"`
-	InspectionTypeCertificateValueInQuantity *float32 `json:"InspectionTypeCertificateValueInQuantity"`
-	InspectionPlanInspectionText             *string  `json:"InspectionPlanInspectionText"`
-	CreationDate                             string   `json:"CreationDate"`
-	LastChangeDate                           string   `json:"LastChangeDate"`
-	IsMarkedForDeletion                      *int     `json:"IsMarkedForDeletion"`
+	InspectionPlan	                            int	     `json:"InspectionPlan"`
+    Inspection	                                int	     `json:"Inspection"`
+    InspectionType                            	string	 `json:"InspectionType"`
+    InspectionTypeValueUnit	                    *string	 `json:"InspectionTypeValueUnit"`
+    InspectionTypePlannedValue	                *float32 `json:"InspectionTypePlannedValue"`
+    InspectionTypeCertificateType	            *string	 `json:"InspectionTypeCertificateType"`
+    InspectionTypeCertificateValueInText	    *string	 `json:"InspectionTypeCertificateValueInText"`
+    InspectionTypeCertificateValueInQuantity	*float32 `json:"InspectionTypeCertificateValueInQuantity"`
+    InspectionPlanInspectionText                *string	 `json:"InspectionPlanInspectionText"`
+	CreationDate            					string   `json:"CreationDate"`
+	LastChangeDate          					string   `json:"LastChangeDate"`
+	IsMarkedForDeletion     					*bool    `json:"IsMarkedForDeletion"`
 }
 
 type Operation struct {
@@ -115,7 +152,7 @@ type Operation struct {
 	CostElement                              *string  `json:"CostElement"`
 	ValidityStartDate                        *string  `json:"ValidityStartDate"`
 	ValidityEndDate                          *string  `json:"ValidityEndDate"`
-	CreationDate                             string   `json:"CreationDate"`
-	LastChangeDate                           string   `json:"LastChangeDate"`
-	IsMarkedForDeletion                      *bool    `json:"IsMarkedForDeletion"`
+	CreationDate                   			 string   `json:"CreationDate"`
+	LastChangeDate                 			 string   `json:"LastChangeDate"`
+	IsMarkedForDeletion            			 *bool    `json:"IsMarkedForDeletion"`
 }
